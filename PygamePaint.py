@@ -35,7 +35,7 @@ while True:
             if ev.key == py.K_BACKSPACE:
                 screen.fill((0,0,0))
                 py.display.update()
-                print("A key has been pressed")
+                print("The screen has been cleared")
             elif ev.key == py.K_r:
                 col = (red)
                 print("Your color is now red")
