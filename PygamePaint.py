@@ -1,8 +1,12 @@
+#Imports
 import pygame as py
 import sys
+
+#Display Settings
 size = (1080, 720)
 screen = py.display.set_mode(size)
 
+#Variable Declarations
 mousedown = False
 
 white = (255,255,255)
@@ -26,16 +30,22 @@ circlesize = 15
 circlethickness = 5
 
 buttontype = 0
+#End of Variable Declarations
+
+#Main Loop
 while True:
     for ev in py.event.get():
+        #If set your circle size to lower than 5, sets size back to 5 and prints that your circle is too small
         if circlesize < 5:
             circlesize = 5
             print("Your circle is too small")
         if ev.type == py.KEYDOWN:
+            #If you press backspace, it'll clear the screen (fill it with black)
             if ev.key == py.K_BACKSPACE:
                 screen.fill((0,0,0))
                 py.display.update()
                 print("The screen has been cleared")
+            #If you press one of these keys, it will change the color of your drawing
             elif ev.key == py.K_r:
                 col = (red)
                 print("Your color is now red")
@@ -68,25 +78,30 @@ while True:
                 print("Your color is now white")
                 col = (white)
                 py.display.update()
+        #If you scroll the wheel, it will dd or subtract 10 units to the size of the circle depending on which way you scroll
         if ev.type == py.MOUSEWHEEL:
             print(ev.x, ev.y)
             if ev.y == (1):
                 circlesize += 10
             if ev.y == (-1):
-                circlesize -= 10        
+                circlesize -= 10    
+        #If you press the mouse down, it will declare the variable "mousedown" to be true    
         if ev.type == py.MOUSEBUTTONDOWN:
             mousedown = True
             buttontype = ev.button
+        #If you move the mouse, are holding the mouse button down, and are using the left mouse button, it will draw a line with a width of 1 pixel by 1 pixel
         if ev.type == py.MOUSEMOTION and mousedown == True and buttontype == 1:
             pos2 = py.mouse.get_pos()
             py.draw.circle(
                 screen, col, pos2, 1, 1
             )
+        #If the color of the line is black (eraser), it will change the size of the line to 30 pixels by 30 pixels
             if col == (black):
                 py.draw.circle(
                 screen, col, pos2, 30, 30
             )
-            py.display.update()        
+            py.display.update()     
+        #When you release the right mouse button after pressing, it will draw a circle wherever your mouse is
         if ev.type == py.MOUSEBUTTONUP:
             mousedown = False
             if ev.button == 3:
@@ -97,4 +112,5 @@ while True:
                     )
                     py.display.update()
                     print(ev.button)
+    #If you quit out of the window, it will exit
     if py.event.get(py.QUIT): exit()
